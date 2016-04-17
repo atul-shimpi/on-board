@@ -6,48 +6,103 @@
       <identifier-quote-string>`</identifier-quote-string>
     </database-info>
     <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact"/>
-    <schema name="" catalog="appname_test"/>
-    <schema name="" catalog="associations_test"/>
+    <schema name="" catalog="ATUL_development"/>
+    <schema name="" catalog="EIS_development"/>
+    <schema name="" catalog="EIS_test"/>
+    <schema name="" catalog="ThinCloud_development"/>
     <schema name="" catalog="information_schema"/>
-    <schema name="" catalog="library_development"/>
-    <schema name="" catalog="my_profile"/>
-    <schema name="" catalog="my_profile_development"/>
-    <schema name="" catalog="my_profile_production"/>
-    <schema name="" catalog="my_profile_test"/>
+    <schema name="" catalog="my_profile_dev"/>
     <schema name="" catalog="mysql"/>
     <schema name="" catalog="on-board"/>
     <schema name="" catalog="on-board_test"/>
-    <schema name="" catalog="online_shop"/>
     <schema name="" catalog="performance_schema"/>
-    <schema name="" catalog="untitled_development"/>
-    <table name="addresses" schema="" catalog="associations_test" type="TABLE">
-      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="address_line1" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="address_line2" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="city" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="customer_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+    <schema name="" catalog="stripe_development"/>
+    <schema name="" catalog="xxxnew_development"/>
+    <table name="ar_internal_metadata" schema="" catalog="ATUL_development" type="TABLE">
+      <column name="key" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="value" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
       <column name="created_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
       <column name="updated_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
-      <primary-key name="PRIMARY" columns="id"/>
+      <primary-key name="PRIMARY" columns="key"/>
     </table>
-    <table name="customer_addresses" schema="" catalog="associations_test" type="TABLE">
-      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="customer_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <column name="created_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
-      <column name="updated_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
-      <primary-key name="PRIMARY" columns="id"/>
-    </table>
-    <table name="customers" schema="" catalog="associations_test" type="TABLE">
+    <table name="employees" schema="" catalog="ATUL_development" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="first_name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="last_name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
       <column name="created_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
       <column name="updated_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
       <primary-key name="PRIMARY" columns="id"/>
     </table>
-    <table name="schema_migrations" schema="" catalog="associations_test" type="TABLE">
+    <table name="schema_migrations" schema="" catalog="ATUL_development" type="TABLE">
+      <column name="version" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="version"/>
+    </table>
+    <table name="address_cities" schema="" catalog="EIS_development" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="address_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="city_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="created_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="updated_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="fk_rails_4a5c08a295" columns="city_id" ref-table="cities" ref-schema="" ref-catalog="EIS_development" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="fk_rails_d2d5105f02" columns="address_id" ref-table="addresses" ref-schema="" ref-catalog="EIS_development" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="index_address_cities_on_address_id" unique="false" columns="address_id"/>
+      <index name="index_address_cities_on_city_id" unique="false" columns="city_id"/>
+    </table>
+    <table name="address_states" schema="" catalog="EIS_development" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="address_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="state_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="fk_rails_3c22031e87" columns="address_id" ref-table="addresses" ref-schema="" ref-catalog="EIS_development" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="fk_rails_56f11cc68e" columns="state_id" ref-table="states" ref-schema="" ref-catalog="EIS_development" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="index_address_states_on_address_id" unique="false" columns="address_id"/>
+      <index name="index_address_states_on_state_id" unique="false" columns="state_id"/>
+    </table>
+    <table name="addresses" schema="" catalog="EIS_development" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="address1" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="address2" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="created_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="updated_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="employee_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="fk_rails_d2d5105f02" table="address_cities" schema="" catalog="EIS_development" columns="address_id"/>
+      <exported-key name="fk_rails_3c22031e87" table="address_states" schema="" catalog="EIS_development" columns="address_id"/>
+    </table>
+    <table name="blogs" schema="" catalog="EIS_development" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="des" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
+      <column name="created_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="updated_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="cities" schema="" catalog="EIS_development" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="30" scale="0" nullable="false" jdbcType="12"/>
+      <column name="created_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="updated_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="fk_rails_4a5c08a295" table="address_cities" schema="" catalog="EIS_development" columns="city_id"/>
+    </table>
+    <table name="employees" schema="" catalog="EIS_development" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="first_name" sqlType="VARCHAR" precision="25" scale="0" nullable="false" jdbcType="12"/>
+      <column name="last_name" sqlType="VARCHAR" precision="25" scale="0" nullable="false" jdbcType="12"/>
+      <column name="age" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="created_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="updated_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="schema_migrations" schema="" catalog="EIS_development" type="TABLE">
       <column name="version" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <index name="unique_schema_migrations" unique="true" columns="version"/>
+    </table>
+    <table name="states" schema="" catalog="EIS_development" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="fk_rails_56f11cc68e" table="address_states" schema="" catalog="EIS_development" columns="state_id"/>
     </table>
     <table name="CHARACTER_SETS" schema="" catalog="information_schema" type="SYSTEM VIEW">
       <column name="CHARACTER_SET_NAME" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
@@ -609,19 +664,7 @@
       <column name="CHARACTER_SET_CLIENT" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
       <column name="COLLATION_CONNECTION" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
     </table>
-    <table name="schema_migrations" schema="" catalog="library_development" type="TABLE">
-      <column name="version" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
-      <index name="unique_schema_migrations" unique="true" columns="version"/>
-    </table>
-    <table name="users" schema="" catalog="library_development" type="TABLE">
-      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="email" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="password" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="created_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
-      <column name="updated_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
-      <primary-key name="PRIMARY" columns="id"/>
-    </table>
-    <table name="my_app_uis" schema="" catalog="my_profile" type="TABLE">
+    <table name="my_app_uis" schema="" catalog="my_profile_dev" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="my_app_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
@@ -629,72 +672,54 @@
       <primary-key name="PRIMARY" columns="id"/>
       <index name="index_my_app_uis_on_my_app_id" unique="false" columns="my_app_id"/>
     </table>
-    <table name="my_apps" schema="" catalog="my_profile" type="TABLE">
+    <table name="my_apps" schema="" catalog="my_profile_dev" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="domain" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="description" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="description" sqlType="VARCHAR" precision="2014" scale="0" nullable="true" jdbcType="12"/>
       <column name="technologies" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="id"/>
     </table>
-    <table name="request_headers" schema="" catalog="my_profile" type="TABLE">
+    <table name="schema_migrations" schema="" catalog="my_profile_dev" type="TABLE">
+      <column name="version" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <index name="unique_schema_migrations" unique="true" columns="version"/>
+    </table>
+    <table name="visitor_locations" schema="" catalog="my_profile_dev" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="visitor_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="dma_code" sqlType="VARCHAR" precision="5" scale="0" nullable="true" jdbcType="12"/>
+      <column name="asn" sqlType="VARCHAR" precision="10" scale="0" nullable="true" jdbcType="12"/>
+      <column name="city" sqlType="VARCHAR" precision="30" scale="0" nullable="true" jdbcType="12"/>
+      <column name="latitude" sqlType="DECIMAL" precision="10" scale="4" nullable="true" jdbcType="3"/>
+      <column name="longitude" sqlType="DECIMAL" precision="10" scale="4" nullable="true" jdbcType="3"/>
+      <column name="country_code" sqlType="VARCHAR" precision="5" scale="0" nullable="true" jdbcType="12"/>
+      <column name="offset" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="country_name" sqlType="VARCHAR" precision="25" scale="0" nullable="true" jdbcType="12"/>
+      <column name="region_code" sqlType="VARCHAR" precision="5" scale="0" nullable="true" jdbcType="12"/>
+      <column name="isp" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="time_zone" sqlType="VARCHAR" precision="25" scale="0" nullable="true" jdbcType="12"/>
+      <column name="area_code" sqlType="VARCHAR" precision="5" scale="0" nullable="true" jdbcType="12"/>
+      <column name="continent_code" sqlType="VARCHAR" precision="5" scale="0" nullable="true" jdbcType="12"/>
+      <column name="region_name" sqlType="VARCHAR" precision="25" scale="0" nullable="true" jdbcType="12"/>
+      <column name="postal_code" sqlType="VARCHAR" precision="25" scale="0" nullable="true" jdbcType="12"/>
+      <column name="country_code3" sqlType="VARCHAR" precision="5" scale="0" nullable="true" jdbcType="12"/>
+      <column name="metro_code" sqlType="VARCHAR" precision="5" scale="0" nullable="true" jdbcType="12"/>
+      <column name="zip_code" sqlType="VARCHAR" precision="15" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="visitors" schema="" catalog="my_profile_dev" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="remote_ip" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
       <column name="remote_host" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
       <column name="server_name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
       <column name="created_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
       <column name="updated_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="is_important" sqlType="TINYINT" precision="3" scale="0" nullable="true" jdbcType="-6" def="MQ=="/>
       <primary-key name="PRIMARY" columns="id"/>
     </table>
-    <table name="schema_migrations" schema="" catalog="my_profile" type="TABLE">
-      <column name="version" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
-      <index name="unique_schema_migrations" unique="true" columns="version"/>
-    </table>
-    <table name="users" schema="" catalog="my_profile" type="TABLE">
+    <table name="visitors_backups" schema="" catalog="my_profile_dev" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="first_name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="last_name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="email" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="created_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
-      <column name="updated_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="ip" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="id"/>
-    </table>
-    <table name="my_app_uis" schema="" catalog="my_profile_development" type="TABLE">
-      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="my_app_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="image_path" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <primary-key name="PRIMARY" columns="id"/>
-      <index name="index_my_app_uis_on_my_app_id" unique="false" columns="my_app_id"/>
-    </table>
-    <table name="my_apps" schema="" catalog="my_profile_development" type="TABLE">
-      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="domain" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="description" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="technologies" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <primary-key name="PRIMARY" columns="id"/>
-    </table>
-    <table name="schema_migrations" schema="" catalog="my_profile_development" type="TABLE">
-      <column name="version" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
-      <index name="unique_schema_migrations" unique="true" columns="version"/>
-    </table>
-    <table name="my_app_uis" schema="" catalog="my_profile_test" type="TABLE">
-      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="my_app_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="image_path" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <primary-key name="PRIMARY" columns="id"/>
-      <index name="index_my_app_uis_on_my_app_id" unique="false" columns="my_app_id"/>
-    </table>
-    <table name="my_apps" schema="" catalog="my_profile_test" type="TABLE">
-      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="domain" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="description" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="technologies" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <primary-key name="PRIMARY" columns="id"/>
-    </table>
-    <table name="schema_migrations" schema="" catalog="my_profile_test" type="TABLE">
-      <column name="version" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
-      <index name="unique_schema_migrations" unique="true" columns="version"/>
     </table>
     <table name="columns_priv" schema="" catalog="mysql" type="SYSTEM TABLE">
       <column name="Host" sqlType="CHAR" precision="60" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
@@ -1090,114 +1115,6 @@
       <index name="index_users_on_email" unique="true" columns="email"/>
       <index name="index_users_on_reset_password_token" unique="true" columns="reset_password_token"/>
     </table>
-    <table name="addresses" schema="" catalog="on-board_test" type="TABLE">
-      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="type_of_address" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <column name="address" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
-      <column name="state_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <column name="city_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <column name="created_at" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
-      <column name="updated_at" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
-      <column name="country_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <primary-key name="PRIMARY" columns="id"/>
-    </table>
-    <table name="birth_dates" schema="" catalog="on-board_test" type="TABLE">
-      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="created_at" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
-      <column name="updated_at" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
-      <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <column name="birth_date" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
-      <primary-key name="PRIMARY" columns="id"/>
-    </table>
-    <table name="candiate_statuses" schema="" catalog="on-board_test" type="TABLE">
-      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <column name="status" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <column name="comments" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="created_at" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
-      <column name="updated_at" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
-      <primary-key name="PRIMARY" columns="id"/>
-    </table>
-    <table name="contacts" schema="" catalog="on-board_test" type="TABLE">
-      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <column name="contact_type" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <column name="value" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <primary-key name="PRIMARY" columns="id"/>
-    </table>
-    <table name="genders" schema="" catalog="on-board_test" type="TABLE">
-      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <column name="genders_master_id" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="created_at" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
-      <column name="updated_at" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
-      <primary-key name="PRIMARY" columns="id"/>
-    </table>
-    <table name="genders_master" schema="" catalog="on-board_test" type="TABLE">
-      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="created_at" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
-      <column name="updated_at" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
-      <primary-key name="PRIMARY" columns="id"/>
-    </table>
-    <table name="roles" schema="" catalog="on-board_test" type="TABLE">
-      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="created_at" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
-      <column name="updated_at" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
-      <primary-key name="PRIMARY" columns="id"/>
-    </table>
-    <table name="schema_migrations" schema="" catalog="on-board_test" type="TABLE">
-      <column name="version" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
-      <index name="unique_schema_migrations" unique="true" columns="version"/>
-    </table>
-    <table name="settings" schema="" catalog="on-board_test" type="TABLE">
-      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="sender" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="bcc" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="cc" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="subject" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="body" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="signature" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="expiry" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <primary-key name="PRIMARY" columns="id"/>
-    </table>
-    <table name="users" schema="" catalog="on-board_test" type="TABLE">
-      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="first_name" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
-      <column name="middle_name" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
-      <column name="last_name" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
-      <column name="role_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="Mw=="/>
-      <column name="email" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
-      <column name="encrypted_password" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
-      <column name="reset_password_token" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="reset_password_sent_at" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
-      <column name="remember_created_at" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
-      <column name="sign_in_count" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
-      <column name="current_sign_in_at" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
-      <column name="last_sign_in_at" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
-      <column name="current_sign_in_ip" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="last_sign_in_ip" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="created_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
-      <column name="updated_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
-      <primary-key name="PRIMARY" columns="id"/>
-      <index name="index_users_on_email" unique="true" columns="email"/>
-      <index name="index_users_on_reset_password_token" unique="true" columns="reset_password_token"/>
-    </table>
-    <table name="schema_migrations" schema="" catalog="online_shop" type="TABLE">
-      <column name="version" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
-      <index name="unique_schema_migrations" unique="true" columns="version"/>
-    </table>
-    <table name="users" schema="" catalog="online_shop" type="TABLE">
-      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="first_name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="last_name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="email" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="password" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="created_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
-      <column name="updated_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
-      <primary-key name="PRIMARY" columns="id"/>
-    </table>
     <table name="cond_instances" schema="" catalog="performance_schema" type="SYSTEM TABLE">
       <column name="NAME" sqlType="VARCHAR" precision="128" scale="0" nullable="false" jdbcType="12"/>
       <column name="OBJECT_INSTANCE_BEGIN" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
@@ -1337,17 +1254,35 @@
       <column name="PROCESSLIST_ID" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="NAME" sqlType="VARCHAR" precision="128" scale="0" nullable="false" jdbcType="12"/>
     </table>
-    <table name="schema_migrations" schema="" catalog="untitled_development" type="TABLE">
+    <table name="schema_migrations" schema="" catalog="stripe_development" type="TABLE">
       <column name="version" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <index name="unique_schema_migrations" unique="true" columns="version"/>
     </table>
-    <table name="users" schema="" catalog="untitled_development" type="TABLE">
+    <table name="users" schema="" catalog="stripe_development" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
       <column name="email" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="password_digest" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
       <column name="created_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
       <column name="updated_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
       <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="ar_internal_metadata" schema="" catalog="xxxnew_development" type="TABLE">
+      <column name="key" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="value" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="created_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="updated_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <primary-key name="PRIMARY" columns="key"/>
+    </table>
+    <table name="employees" schema="" catalog="xxxnew_development" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="first_name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="created_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="updated_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="schema_migrations" schema="" catalog="xxxnew_development" type="TABLE">
+      <column name="version" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="version"/>
     </table>
   </data-source>
   <data-source name="Rails on-board: test" uuid="66ad1425-e974-4b10-ac90-d21c4a61afaa">
@@ -1356,48 +1291,103 @@
       <identifier-quote-string>`</identifier-quote-string>
     </database-info>
     <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact"/>
-    <schema name="" catalog="appname_test"/>
-    <schema name="" catalog="associations_test"/>
+    <schema name="" catalog="ATUL_development"/>
+    <schema name="" catalog="EIS_development"/>
+    <schema name="" catalog="EIS_test"/>
+    <schema name="" catalog="ThinCloud_development"/>
     <schema name="" catalog="information_schema"/>
-    <schema name="" catalog="library_development"/>
-    <schema name="" catalog="my_profile"/>
-    <schema name="" catalog="my_profile_development"/>
-    <schema name="" catalog="my_profile_production"/>
-    <schema name="" catalog="my_profile_test"/>
+    <schema name="" catalog="my_profile_dev"/>
     <schema name="" catalog="mysql"/>
     <schema name="" catalog="on-board"/>
     <schema name="" catalog="on-board_test"/>
-    <schema name="" catalog="online_shop"/>
     <schema name="" catalog="performance_schema"/>
-    <schema name="" catalog="untitled_development"/>
-    <table name="addresses" schema="" catalog="associations_test" type="TABLE">
-      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="address_line1" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="address_line2" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="city" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="customer_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+    <schema name="" catalog="stripe_development"/>
+    <schema name="" catalog="xxxnew_development"/>
+    <table name="ar_internal_metadata" schema="" catalog="ATUL_development" type="TABLE">
+      <column name="key" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="value" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
       <column name="created_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
       <column name="updated_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
-      <primary-key name="PRIMARY" columns="id"/>
+      <primary-key name="PRIMARY" columns="key"/>
     </table>
-    <table name="customer_addresses" schema="" catalog="associations_test" type="TABLE">
-      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="customer_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <column name="created_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
-      <column name="updated_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
-      <primary-key name="PRIMARY" columns="id"/>
-    </table>
-    <table name="customers" schema="" catalog="associations_test" type="TABLE">
+    <table name="employees" schema="" catalog="ATUL_development" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="first_name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="last_name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
       <column name="created_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
       <column name="updated_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
       <primary-key name="PRIMARY" columns="id"/>
     </table>
-    <table name="schema_migrations" schema="" catalog="associations_test" type="TABLE">
+    <table name="schema_migrations" schema="" catalog="ATUL_development" type="TABLE">
+      <column name="version" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="version"/>
+    </table>
+    <table name="address_cities" schema="" catalog="EIS_development" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="address_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="city_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="created_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="updated_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="fk_rails_4a5c08a295" columns="city_id" ref-table="cities" ref-schema="" ref-catalog="EIS_development" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="fk_rails_d2d5105f02" columns="address_id" ref-table="addresses" ref-schema="" ref-catalog="EIS_development" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="index_address_cities_on_address_id" unique="false" columns="address_id"/>
+      <index name="index_address_cities_on_city_id" unique="false" columns="city_id"/>
+    </table>
+    <table name="address_states" schema="" catalog="EIS_development" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="address_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="state_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="fk_rails_3c22031e87" columns="address_id" ref-table="addresses" ref-schema="" ref-catalog="EIS_development" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="fk_rails_56f11cc68e" columns="state_id" ref-table="states" ref-schema="" ref-catalog="EIS_development" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="index_address_states_on_address_id" unique="false" columns="address_id"/>
+      <index name="index_address_states_on_state_id" unique="false" columns="state_id"/>
+    </table>
+    <table name="addresses" schema="" catalog="EIS_development" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="address1" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="address2" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="created_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="updated_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="employee_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="fk_rails_d2d5105f02" table="address_cities" schema="" catalog="EIS_development" columns="address_id"/>
+      <exported-key name="fk_rails_3c22031e87" table="address_states" schema="" catalog="EIS_development" columns="address_id"/>
+    </table>
+    <table name="blogs" schema="" catalog="EIS_development" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="des" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
+      <column name="created_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="updated_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="cities" schema="" catalog="EIS_development" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="30" scale="0" nullable="false" jdbcType="12"/>
+      <column name="created_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="updated_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="fk_rails_4a5c08a295" table="address_cities" schema="" catalog="EIS_development" columns="city_id"/>
+    </table>
+    <table name="employees" schema="" catalog="EIS_development" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="first_name" sqlType="VARCHAR" precision="25" scale="0" nullable="false" jdbcType="12"/>
+      <column name="last_name" sqlType="VARCHAR" precision="25" scale="0" nullable="false" jdbcType="12"/>
+      <column name="age" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="created_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="updated_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="schema_migrations" schema="" catalog="EIS_development" type="TABLE">
       <column name="version" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <index name="unique_schema_migrations" unique="true" columns="version"/>
+    </table>
+    <table name="states" schema="" catalog="EIS_development" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="fk_rails_56f11cc68e" table="address_states" schema="" catalog="EIS_development" columns="state_id"/>
     </table>
     <table name="CHARACTER_SETS" schema="" catalog="information_schema" type="SYSTEM VIEW">
       <column name="CHARACTER_SET_NAME" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
@@ -1959,19 +1949,7 @@
       <column name="CHARACTER_SET_CLIENT" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
       <column name="COLLATION_CONNECTION" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
     </table>
-    <table name="schema_migrations" schema="" catalog="library_development" type="TABLE">
-      <column name="version" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
-      <index name="unique_schema_migrations" unique="true" columns="version"/>
-    </table>
-    <table name="users" schema="" catalog="library_development" type="TABLE">
-      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="email" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="password" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="created_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
-      <column name="updated_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
-      <primary-key name="PRIMARY" columns="id"/>
-    </table>
-    <table name="my_app_uis" schema="" catalog="my_profile" type="TABLE">
+    <table name="my_app_uis" schema="" catalog="my_profile_dev" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="my_app_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
@@ -1979,72 +1957,54 @@
       <primary-key name="PRIMARY" columns="id"/>
       <index name="index_my_app_uis_on_my_app_id" unique="false" columns="my_app_id"/>
     </table>
-    <table name="my_apps" schema="" catalog="my_profile" type="TABLE">
+    <table name="my_apps" schema="" catalog="my_profile_dev" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="domain" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="description" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="description" sqlType="VARCHAR" precision="2014" scale="0" nullable="true" jdbcType="12"/>
       <column name="technologies" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="id"/>
     </table>
-    <table name="request_headers" schema="" catalog="my_profile" type="TABLE">
+    <table name="schema_migrations" schema="" catalog="my_profile_dev" type="TABLE">
+      <column name="version" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <index name="unique_schema_migrations" unique="true" columns="version"/>
+    </table>
+    <table name="visitor_locations" schema="" catalog="my_profile_dev" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="visitor_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="dma_code" sqlType="VARCHAR" precision="5" scale="0" nullable="true" jdbcType="12"/>
+      <column name="asn" sqlType="VARCHAR" precision="10" scale="0" nullable="true" jdbcType="12"/>
+      <column name="city" sqlType="VARCHAR" precision="30" scale="0" nullable="true" jdbcType="12"/>
+      <column name="latitude" sqlType="DECIMAL" precision="10" scale="4" nullable="true" jdbcType="3"/>
+      <column name="longitude" sqlType="DECIMAL" precision="10" scale="4" nullable="true" jdbcType="3"/>
+      <column name="country_code" sqlType="VARCHAR" precision="5" scale="0" nullable="true" jdbcType="12"/>
+      <column name="offset" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="country_name" sqlType="VARCHAR" precision="25" scale="0" nullable="true" jdbcType="12"/>
+      <column name="region_code" sqlType="VARCHAR" precision="5" scale="0" nullable="true" jdbcType="12"/>
+      <column name="isp" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="time_zone" sqlType="VARCHAR" precision="25" scale="0" nullable="true" jdbcType="12"/>
+      <column name="area_code" sqlType="VARCHAR" precision="5" scale="0" nullable="true" jdbcType="12"/>
+      <column name="continent_code" sqlType="VARCHAR" precision="5" scale="0" nullable="true" jdbcType="12"/>
+      <column name="region_name" sqlType="VARCHAR" precision="25" scale="0" nullable="true" jdbcType="12"/>
+      <column name="postal_code" sqlType="VARCHAR" precision="25" scale="0" nullable="true" jdbcType="12"/>
+      <column name="country_code3" sqlType="VARCHAR" precision="5" scale="0" nullable="true" jdbcType="12"/>
+      <column name="metro_code" sqlType="VARCHAR" precision="5" scale="0" nullable="true" jdbcType="12"/>
+      <column name="zip_code" sqlType="VARCHAR" precision="15" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="visitors" schema="" catalog="my_profile_dev" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="remote_ip" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
       <column name="remote_host" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
       <column name="server_name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
       <column name="created_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
       <column name="updated_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="is_important" sqlType="TINYINT" precision="3" scale="0" nullable="true" jdbcType="-6" def="MQ=="/>
       <primary-key name="PRIMARY" columns="id"/>
     </table>
-    <table name="schema_migrations" schema="" catalog="my_profile" type="TABLE">
-      <column name="version" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
-      <index name="unique_schema_migrations" unique="true" columns="version"/>
-    </table>
-    <table name="users" schema="" catalog="my_profile" type="TABLE">
+    <table name="visitors_backups" schema="" catalog="my_profile_dev" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="first_name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="last_name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="email" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="created_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
-      <column name="updated_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="ip" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="id"/>
-    </table>
-    <table name="my_app_uis" schema="" catalog="my_profile_development" type="TABLE">
-      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="my_app_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="image_path" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <primary-key name="PRIMARY" columns="id"/>
-      <index name="index_my_app_uis_on_my_app_id" unique="false" columns="my_app_id"/>
-    </table>
-    <table name="my_apps" schema="" catalog="my_profile_development" type="TABLE">
-      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="domain" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="description" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="technologies" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <primary-key name="PRIMARY" columns="id"/>
-    </table>
-    <table name="schema_migrations" schema="" catalog="my_profile_development" type="TABLE">
-      <column name="version" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
-      <index name="unique_schema_migrations" unique="true" columns="version"/>
-    </table>
-    <table name="my_app_uis" schema="" catalog="my_profile_test" type="TABLE">
-      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="my_app_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="image_path" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <primary-key name="PRIMARY" columns="id"/>
-      <index name="index_my_app_uis_on_my_app_id" unique="false" columns="my_app_id"/>
-    </table>
-    <table name="my_apps" schema="" catalog="my_profile_test" type="TABLE">
-      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="domain" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="description" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="technologies" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <primary-key name="PRIMARY" columns="id"/>
-    </table>
-    <table name="schema_migrations" schema="" catalog="my_profile_test" type="TABLE">
-      <column name="version" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
-      <index name="unique_schema_migrations" unique="true" columns="version"/>
     </table>
     <table name="columns_priv" schema="" catalog="mysql" type="SYSTEM TABLE">
       <column name="Host" sqlType="CHAR" precision="60" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
@@ -2440,114 +2400,6 @@
       <index name="index_users_on_email" unique="true" columns="email"/>
       <index name="index_users_on_reset_password_token" unique="true" columns="reset_password_token"/>
     </table>
-    <table name="addresses" schema="" catalog="on-board_test" type="TABLE">
-      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="type_of_address" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <column name="address" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
-      <column name="state_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <column name="city_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <column name="created_at" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
-      <column name="updated_at" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
-      <column name="country_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <primary-key name="PRIMARY" columns="id"/>
-    </table>
-    <table name="birth_dates" schema="" catalog="on-board_test" type="TABLE">
-      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="created_at" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
-      <column name="updated_at" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
-      <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <column name="birth_date" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
-      <primary-key name="PRIMARY" columns="id"/>
-    </table>
-    <table name="candiate_statuses" schema="" catalog="on-board_test" type="TABLE">
-      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <column name="status" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <column name="comments" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="created_at" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
-      <column name="updated_at" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
-      <primary-key name="PRIMARY" columns="id"/>
-    </table>
-    <table name="contacts" schema="" catalog="on-board_test" type="TABLE">
-      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <column name="contact_type" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <column name="value" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <primary-key name="PRIMARY" columns="id"/>
-    </table>
-    <table name="genders" schema="" catalog="on-board_test" type="TABLE">
-      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="user_id" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <column name="genders_master_id" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="created_at" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
-      <column name="updated_at" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
-      <primary-key name="PRIMARY" columns="id"/>
-    </table>
-    <table name="genders_master" schema="" catalog="on-board_test" type="TABLE">
-      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="created_at" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
-      <column name="updated_at" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
-      <primary-key name="PRIMARY" columns="id"/>
-    </table>
-    <table name="roles" schema="" catalog="on-board_test" type="TABLE">
-      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="created_at" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
-      <column name="updated_at" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
-      <primary-key name="PRIMARY" columns="id"/>
-    </table>
-    <table name="schema_migrations" schema="" catalog="on-board_test" type="TABLE">
-      <column name="version" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
-      <index name="unique_schema_migrations" unique="true" columns="version"/>
-    </table>
-    <table name="settings" schema="" catalog="on-board_test" type="TABLE">
-      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="sender" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="bcc" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="cc" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="subject" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="body" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="signature" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="expiry" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
-      <primary-key name="PRIMARY" columns="id"/>
-    </table>
-    <table name="users" schema="" catalog="on-board_test" type="TABLE">
-      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="first_name" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
-      <column name="middle_name" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
-      <column name="last_name" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
-      <column name="role_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="Mw=="/>
-      <column name="email" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
-      <column name="encrypted_password" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
-      <column name="reset_password_token" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="reset_password_sent_at" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
-      <column name="remember_created_at" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
-      <column name="sign_in_count" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
-      <column name="current_sign_in_at" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
-      <column name="last_sign_in_at" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
-      <column name="current_sign_in_ip" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="last_sign_in_ip" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="created_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
-      <column name="updated_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
-      <primary-key name="PRIMARY" columns="id"/>
-      <index name="index_users_on_email" unique="true" columns="email"/>
-      <index name="index_users_on_reset_password_token" unique="true" columns="reset_password_token"/>
-    </table>
-    <table name="schema_migrations" schema="" catalog="online_shop" type="TABLE">
-      <column name="version" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
-      <index name="unique_schema_migrations" unique="true" columns="version"/>
-    </table>
-    <table name="users" schema="" catalog="online_shop" type="TABLE">
-      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="first_name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="last_name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="email" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="password" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="created_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
-      <column name="updated_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
-      <primary-key name="PRIMARY" columns="id"/>
-    </table>
     <table name="cond_instances" schema="" catalog="performance_schema" type="SYSTEM TABLE">
       <column name="NAME" sqlType="VARCHAR" precision="128" scale="0" nullable="false" jdbcType="12"/>
       <column name="OBJECT_INSTANCE_BEGIN" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
@@ -2687,17 +2539,35 @@
       <column name="PROCESSLIST_ID" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
       <column name="NAME" sqlType="VARCHAR" precision="128" scale="0" nullable="false" jdbcType="12"/>
     </table>
-    <table name="schema_migrations" schema="" catalog="untitled_development" type="TABLE">
+    <table name="schema_migrations" schema="" catalog="stripe_development" type="TABLE">
       <column name="version" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
       <index name="unique_schema_migrations" unique="true" columns="version"/>
     </table>
-    <table name="users" schema="" catalog="untitled_development" type="TABLE">
+    <table name="users" schema="" catalog="stripe_development" type="TABLE">
       <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
       <column name="email" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="password_digest" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
       <column name="created_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
       <column name="updated_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
       <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="ar_internal_metadata" schema="" catalog="xxxnew_development" type="TABLE">
+      <column name="key" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="value" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="created_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="updated_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <primary-key name="PRIMARY" columns="key"/>
+    </table>
+    <table name="employees" schema="" catalog="xxxnew_development" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="first_name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="created_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <column name="updated_at" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="schema_migrations" schema="" catalog="xxxnew_development" type="TABLE">
+      <column name="version" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="version"/>
     </table>
   </data-source>
   <data-source name="Rails on-board: production" uuid="c5893750-e993-4e08-aa9d-10af0d13ddd0">

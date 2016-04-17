@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DataSourceManagerImpl" format="xml" hash="4088882183">
+  <component name="DataSourceManagerImpl" format="xml" hash="1558705989">
     <data-source source="LOCAL" name="Rails on-board: development" uuid="2ec66c46-8ab6-4d66-80c1-4dffe5a56e09">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
